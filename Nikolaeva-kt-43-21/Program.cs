@@ -1,5 +1,7 @@
 var builder = WebApplication.CreateBuilder(args);
 
+string ts = "E";
+
 // Add services to the container.
 
 builder.Services.AddControllers();
