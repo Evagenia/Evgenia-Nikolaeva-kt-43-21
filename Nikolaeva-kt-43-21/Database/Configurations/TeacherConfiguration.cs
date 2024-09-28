@@ -39,7 +39,7 @@ namespace Nikolaeva_kt_43_21.Database.Configurations
 
             builder.Property(p => p.CathedraId)
                 .IsRequired()
-                .HasColumnName("f_department_id")
+                .HasColumnName("f_cathedra_id")
                 .HasColumnType(ColumnType.Int)
                 .HasComment("Идентификатор кафедры");
 
