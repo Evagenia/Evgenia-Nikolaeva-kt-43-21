@@ -16,11 +16,24 @@ namespace Nikolaeva_kt_43_21.Controller
             _logger = logger;
             _teacherService = teacherService;
         }
-
-        [HttpPost("GetTeachers")]
+        [HttpPost("GetTeachersByCathedra")]
         public async Task<IActionResult> GetTeachersByCathedraAsync(TeacherCathedraFilter filter, CancellationToken cancellationToken = default)
         {
             var teachers = await _teacherService.GetTeachersByCathedraAsync(filter, cancellationToken);
+            return Ok(teachers);
+        }
+
+
+        [HttpPost("GetTeachersByDegree")]
+        public async Task<IActionResult> GetTeachersByDegreeAsync(TeacherDegreeFilter filter, CancellationToken cancellationToken = default)
+        {
+            var teachers = await _teacherService.GetTeachersByDegreeAsync(filter, cancellationToken);
+            return Ok(teachers);
+        }
+        [HttpPost("GetTeachersByPosition")]
+        public async Task<IActionResult> GetTeachersByPositionAsync(TeacherPositionFilter filter, CancellationToken cancellationToken = default)
+        {
+            var teachers = await _teacherService.GetTeachersByPositionAsync(filter, cancellationToken);
             return Ok(teachers);
         }
     }

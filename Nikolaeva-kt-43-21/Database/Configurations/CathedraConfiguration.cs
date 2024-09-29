@@ -25,6 +25,17 @@ namespace Nikolaeva_kt_43_21.Database.Configurations
                 .HasColumnName("cathedra_name")
                 .HasColumnType(ColumnType.String).HasMaxLength(100)
                 .HasComment("Название кафедры");
+
+            builder.Property(p => p.HeadTeacherId)
+                .HasColumnName("f_head_teacher_id")
+                .HasColumnType(ColumnType.Int)
+                .HasComment("Идентификатор заведующего кафедрой");
+
+            builder.ToTable(TableName)
+                .HasOne(p => p.HeadTeacher)
+                .WithMany()
+                .HasForeignKey(p => p.HeadTeacherId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

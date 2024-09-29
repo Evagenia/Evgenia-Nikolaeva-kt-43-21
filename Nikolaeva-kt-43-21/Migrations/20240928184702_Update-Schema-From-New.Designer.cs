@@ -11,8 +11,8 @@ using Nikolaeva_kt_43_21.Database;
 namespace Nikolaeva_kt_43_21.Migrations
 {
     [DbContext(typeof(TeacherDbContext))]
-    [Migration("20240923140917_RenameColumn")]
-    partial class RenameColumn
+    [Migration("20240928184702_Update-Schema-From-New")]
+    partial class UpdateSchemaFromNew
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,6 +34,11 @@ namespace Nikolaeva_kt_43_21.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CathedraId"));
 
+                    b.Property<int>("HeadTeacherId")
+                        .HasColumnType("int")
+                        .HasColumnName("f_head_teacher_id")
+                        .HasComment("Идентификатор заведующего кафедрой");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -42,6 +47,8 @@ namespace Nikolaeva_kt_43_21.Migrations
                         .HasComment("Название кафедры");
 
                     b.HasKey("CathedraId");
+
+                    b.HasIndex("HeadTeacherId");
 
                     b.ToTable("cathedras", (string)null);
                 });
@@ -90,6 +97,12 @@ namespace Nikolaeva_kt_43_21.Migrations
                         .HasColumnName("f_cathedra_id")
                         .HasComment("Идентификатор кафедры");
 
+                    b.Property<string>("Degree")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar")
+                        .HasColumnName("teacher_degree")
+                        .HasComment("Ученая степень преподавателя");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -111,11 +124,29 @@ namespace Nikolaeva_kt_43_21.Migrations
                         .HasColumnName("teacher_middlename")
                         .HasComment("Отчество преподавателя");
 
+                    b.Property<string>("Position")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar")
+                        .HasColumnName("teacher_position")
+                        .HasComment("Должность преподавателя");
+
                     b.HasKey("TeacherId");
 
                     b.HasIndex("CathedraId");
 
                     b.ToTable("teachers", (string)null);
+                });
+
+            modelBuilder.Entity("Nikolaeva_kt_43_21.Models.Cathedra", b =>
+                {
+                    b.HasOne("Nikolaeva_kt_43_21.Models.Teacher", "HeadTeacher")
+                        .WithMany()
+                        .HasForeignKey("HeadTeacherId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("HeadTeacher");
                 });
 
             modelBuilder.Entity("Nikolaeva_kt_43_21.Models.Discipline", b =>

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Nikolaeva_kt_43_21.Database;
+using Nikolaeva_kt_43_21.Middlewares;
 using Nikolaeva_kt_43_21.ServiceExtensions;
 using NLog;
 using NLog.Web;
@@ -32,6 +33,7 @@ try
         app.UseSwaggerUI();
     }
 
+    app.UseMiddleware<ExceptionHandlerMiddleware>();
     app.MapControllers();
     app.Run();
 }

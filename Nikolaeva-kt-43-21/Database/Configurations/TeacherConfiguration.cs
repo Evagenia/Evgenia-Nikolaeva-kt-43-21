@@ -33,9 +33,21 @@ namespace Nikolaeva_kt_43_21.Database.Configurations
                 .HasComment("Фамилия преподавателя");
 
             builder.Property(p => p.MiddleName)
+                .IsRequired()
                 .HasColumnName("teacher_middlename")
                 .HasColumnType(ColumnType.String).HasMaxLength(100)
                 .HasComment("Отчество преподавателя");
+
+            builder.Property(p => p.Position)
+                .IsRequired()
+                .HasColumnName("teacher_position")
+                .HasColumnType(ColumnType.String).HasMaxLength(100)
+                .HasComment("Должность преподавателя");
+
+            builder.Property(p => p.Degree)
+                .HasColumnName("teacher_degree")
+                .HasColumnType(ColumnType.String).HasMaxLength(100)
+                .HasComment("Ученая степень преподавателя");
 
             builder.Property(p => p.CathedraId)
                 .IsRequired()
@@ -48,9 +60,6 @@ namespace Nikolaeva_kt_43_21.Database.Configurations
                 .WithMany()
                 .HasForeignKey(p => p.CathedraId)
                 .OnDelete(DeleteBehavior.Cascade);
-
-            builder.Navigation(p => p.Cathedra)
-                .AutoInclude();
         }
     }
 }

@@ -5,7 +5,7 @@
 namespace Nikolaeva_kt_43_21.Migrations
 {
     /// <inheritdoc />
-    public partial class CreateDatabase : Migration
+    public partial class UpdateSchemaFromNew : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,7 +16,8 @@ namespace Nikolaeva_kt_43_21.Migrations
                 {
                     cathedra_id = table.Column<int>(type: "int", nullable: false, comment: "Идентификатор записи кафедры")
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    cathedra_name = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false, comment: "Название кафедры")
+                    cathedra_name = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false, comment: "Название кафедры"),
+                    f_head_teacher_id = table.Column<int>(type: "int", nullable: false, comment: "Идентификатор заведующего кафедрой")
                 },
                 constraints: table =>
                 {
@@ -32,14 +33,16 @@ namespace Nikolaeva_kt_43_21.Migrations
                     teacher_firstname = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false, comment: "Имя преподавателя"),
                     teacher_lastname = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false, comment: "Фамилия преподавателя"),
                     teacher_middlename = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false, comment: "Отчество преподавателя"),
-                    f_department_id = table.Column<int>(type: "int", nullable: false, comment: "Идентификатор кафедры")
+                    teacher_position = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false, comment: "Должность преподавателя"),
+                    teacher_degree = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true, comment: "Ученая степень преподавателя"),
+                    f_cathedra_id = table.Column<int>(type: "int", nullable: false, comment: "Идентификатор кафедры")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_teachers", x => x.teacher_id);
                     table.ForeignKey(
-                        name: "FK_teachers_cathedras_f_department_id",
-                        column: x => x.f_department_id,
+                        name: "FK_teachers_cathedras_f_cathedra_id",
+                        column: x => x.f_cathedra_id,
                         principalTable: "cathedras",
                         principalColumn: "cathedra_id",
                         onDelete: ReferentialAction.Cascade);
@@ -66,19 +69,35 @@ namespace Nikolaeva_kt_43_21.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_cathedras_f_head_teacher_id",
+                table: "cathedras",
+                column: "f_head_teacher_id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_disciplines_f_teacher_id",
                 table: "disciplines",
                 column: "f_teacher_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_teachers_f_department_id",
+                name: "IX_teachers_f_cathedra_id",
                 table: "teachers",
-                column: "f_department_id");
+                column: "f_cathedra_id");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_cathedras_teachers_f_head_teacher_id",
+                table: "cathedras",
+                column: "f_head_teacher_id",
+                principalTable: "teachers",
+                principalColumn: "teacher_id");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_cathedras_teachers_f_head_teacher_id",
+                table: "cathedras");
+
             migrationBuilder.DropTable(
                 name: "disciplines");
 

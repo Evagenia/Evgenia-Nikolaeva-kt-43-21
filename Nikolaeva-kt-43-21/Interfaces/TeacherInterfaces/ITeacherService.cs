@@ -7,7 +7,11 @@ namespace Nikolaeva_kt_43_21.Interfaces.TeacherInterfaces
 {
     public interface ITeacherService
     {
+        public Task<Teacher[]> GetTeachersByDegreeAsync(TeacherDegreeFilter filter, CancellationToken cancellationToken);
+        
         public Task<Teacher[]> GetTeachersByCathedraAsync(TeacherCathedraFilter filter, CancellationToken cancellationToken);
+
+        public Task<Teacher[]> GetTeachersByPositionAsync(TeacherPositionFilter filter, CancellationToken cancellationToken);
     }
 
     public class TeacherService : ITeacherService
@@ -18,10 +22,21 @@ namespace Nikolaeva_kt_43_21.Interfaces.TeacherInterfaces
         {
             _dbContext = dbContext;
         }
+        public Task<Teacher[]> GetTeachersByDegreeAsync(TeacherDegreeFilter filter, CancellationToken cancellationToken)
+        {
+            var teachers = _dbContext.Set<Teacher>().Where(t => t.Degree == filter.Degree).ToArrayAsync();
+            return teachers;
+        }
 
         public Task<Teacher[]> GetTeachersByCathedraAsync(TeacherCathedraFilter filter, CancellationToken cancellationToken)
         {
             var teachers = _dbContext.Set<Teacher>().Where(t => t.Cathedra.Name == filter.CathedraName).ToArrayAsync();
+            return teachers;
+        }
+
+        public Task<Teacher[]> GetTeachersByPositionAsync(TeacherPositionFilter filter, CancellationToken cancellationToken)
+        {
+            var teachers = _dbContext.Set<Teacher>().Where(t => t.Position == filter.Position).ToArrayAsync();
             return teachers;
         }
     }
