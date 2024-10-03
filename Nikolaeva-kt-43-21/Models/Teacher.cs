@@ -17,6 +17,6 @@ namespace Nikolaeva_kt_43_21.Models
 
         public int CathedraId { get; set; }
 
-        public required Cathedra Cathedra { get; set; }
+        public Cathedra? Cathedra { get; set; }
     }
 }

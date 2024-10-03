@@ -5,7 +5,7 @@ using Nikolaeva_kt_43_21.Models;
 
 namespace Nikolaeva_kt_43_21.Interfaces.TeacherInterfaces
 {
-    public interface ITeacherService
+    public interface ITeacherGetterService
     {
         public Task<Teacher[]> GetTeachersByDegreeAsync(TeacherDegreeFilter filter, CancellationToken cancellationToken);
         
@@ -14,11 +14,11 @@ namespace Nikolaeva_kt_43_21.Interfaces.TeacherInterfaces
         public Task<Teacher[]> GetTeachersByPositionAsync(TeacherPositionFilter filter, CancellationToken cancellationToken);
     }
 
-    public class TeacherService : ITeacherService
+    public class TeacherGetterService : ITeacherGetterService
     {
         private readonly TeacherDbContext _dbContext;
 
-        public TeacherService(TeacherDbContext dbContext)
+        public TeacherGetterService(TeacherDbContext dbContext)
         {
             _dbContext = dbContext;
         }
