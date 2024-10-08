@@ -1,4 +1,4 @@
-﻿namespace Nikolaeva_kt_43_21.Filters.TeacherInterfaces
+﻿namespace Nikolaeva_kt_43_21.Filters
 {
     public class TeacherCathedraFilter
     {

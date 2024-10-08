@@ -1,4 +1,5 @@
 ﻿using System.Net.Sockets;
+using System.Text.RegularExpressions;
 
 namespace Nikolaeva_kt_43_21.Models
 {
@@ -6,11 +7,11 @@ namespace Nikolaeva_kt_43_21.Models
     {
         public int TeacherId { get; set; }
 
-        public string FirstName { get; set; } = string.Empty;
+        public required string FirstName { get; set; } = string.Empty;
 
-        public string LastName { get; set; } = string.Empty;
+        public required string LastName { get; set; } = string.Empty;
 
-        public string MiddleName { get; set; } = string.Empty;
+        public required string MiddleName { get; set; } = string.Empty;
          public required string Position {  get; set; } 
 
         public string? Degree { get; set; } 
@@ -18,5 +19,7 @@ namespace Nikolaeva_kt_43_21.Models
         public int CathedraId { get; set; }
 
         public Cathedra? Cathedra { get; set; }
+
+        public bool HasAcademicDegree() => Degree != null;
     }
 }

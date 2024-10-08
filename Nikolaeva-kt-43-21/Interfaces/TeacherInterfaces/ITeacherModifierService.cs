@@ -1,7 +1,7 @@
 ﻿using Nikolaeva_kt_43_21.Database;
 using Nikolaeva_kt_43_21.Models;
 
-namespace Nikolaeva_kt_43_21.Filters.TeacherInterfaces
+namespace Nikolaeva_kt_43_21.Interfaces.TeacherInterfaces
 {
     public interface ITeacherModifierService
     {

@@ -1,5 +1,4 @@
-﻿using Nikolaeva_kt_43_21.Filters.TeacherInterfaces;
-using Nikolaeva_kt_43_21.Interfaces.TeacherInterfaces;
+﻿using Nikolaeva_kt_43_21.Interfaces.TeacherInterfaces;
 
 namespace Nikolaeva_kt_43_21.ServiceExtensions
 {
