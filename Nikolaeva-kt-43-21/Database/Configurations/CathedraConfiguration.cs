@@ -33,8 +33,8 @@ namespace Nikolaeva_kt_43_21.Database.Configurations
 
             builder.ToTable(TableName)
                 .HasOne(p => p.HeadTeacher)
-                .WithMany()
-                .HasForeignKey(p => p.HeadTeacherId)
+                .WithOne()
+                .HasForeignKey<Cathedra>(p => p.HeadTeacherId)
                 .OnDelete(DeleteBehavior.NoAction);
         }
     }
