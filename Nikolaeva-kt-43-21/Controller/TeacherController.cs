@@ -41,6 +41,13 @@ namespace Nikolaeva_kt_43_21.Controller
             return Ok(teachers);
         }
 
+        [HttpPost("GetTeachersByFIO")]
+        public async Task<IActionResult> GetTeachersByFIOAsync(TeacherFIOFilter filter, CancellationToken cancellationToken = default)
+        {
+            var teachers = await _teacherGetterService.GetTeachersByFIOAsync(filter, cancellationToken);
+            return Ok(teachers);
+        }
+
         [HttpPost("Create")]
         public async Task<IActionResult> CreateTeacherAsync(Teacher teacher, CancellationToken cancellationToken = default)
         {

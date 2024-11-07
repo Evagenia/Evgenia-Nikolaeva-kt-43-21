@@ -12,6 +12,10 @@ namespace Nikolaeva_kt_43_21.Interfaces.TeacherInterfaces
         public Task<Teacher[]> GetTeachersByCathedraAsync(TeacherCathedraFilter filter, CancellationToken cancellationToken = default);
 
         public Task<Teacher[]> GetTeachersByPositionAsync(TeacherPositionFilter filter, CancellationToken cancellationToken = default);
+
+        public Task<Teacher[]> GetTeachersByFIOAsync(TeacherFIOFilter filter, CancellationToken cancellationToken = default);
+
+        
     }
 
     public class TeacherGetterService : ITeacherGetterService
@@ -39,5 +43,12 @@ namespace Nikolaeva_kt_43_21.Interfaces.TeacherInterfaces
             var teachers = _dbContext.Set<Teacher>().Where(t => t.Position == filter.Position).ToArrayAsync();
             return teachers;
         }
+
+        public Task<Teacher[]> GetTeachersByFIOAsync(TeacherFIOFilter filter, CancellationToken cancellationToken = default)
+        {
+            var teachers = _dbContext.Set<Teacher>().Where(t => t.FirstName == filter.FirstName && t.LastName == filter.LastName && t.MiddleName == filter.MiddleName).ToArrayAsync();
+            return teachers;
+        }
+
     }
 }
