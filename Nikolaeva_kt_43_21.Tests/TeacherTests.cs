@@ -55,8 +55,6 @@ namespace Nikolaeva_kt_43_21.Tests
 
             Assert.True(result);
         }
-
-
     }
     
 }
