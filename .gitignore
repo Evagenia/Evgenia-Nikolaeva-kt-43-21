@@ -4,7 +4,7 @@
 ## Get latest from `dotnet new gitignore`
 
 ## My files
-проект_гайд.docx
+**/*.docx
 
 # dotenv files
 .env
