@@ -9,17 +9,10 @@ namespace Nikolaeva_kt_43_21.Tests
         {
             var teacher = new Teacher
             {
-                TeacherId = 1,
-                FirstName = "Николаева",
-                MiddleName = "Евгения",
-                LastName = "Александровна",
-                Position = "ст. препод",
                 Degree = null,
-                CathedraId = 1,
-                Cathedra = null
             };
 
-            var result = teacher.HasAcademicDegree();
+            var result = teacher.HasDegree();
 
             Assert.False(result);
         }
@@ -29,17 +22,36 @@ namespace Nikolaeva_kt_43_21.Tests
         {
             var teacher = new Teacher
             {
-                TeacherId = 1,
-                FirstName = "Ванеркин",
-                MiddleName = "Илья",
-                LastName = "Федорович",
-                Position = "ст. препод",
-                Degree = "к.н.п",
-                CathedraId = 1,
-                Cathedra = null 
+                Degree = "к.п.н.",
             };
 
-            var result = teacher.HasAcademicDegree();
+            var result = teacher.HasDegree();
+
+            Assert.True(result);
+        }
+
+        [Fact]
+        public void IsValidPotition_zavkaf_False()
+        {
+            var teacher = new Teacher
+            {
+                Position = "зав. каф."
+            };
+
+            var result = teacher.IsValidPosition();
+
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void IsValidPotition_Zavkaf_True()
+        {
+            var teacher = new Teacher
+            {
+                Position = "Зав. каф."
+            };
+
+            var result = teacher.IsValidPosition();
 
             Assert.True(result);
         }

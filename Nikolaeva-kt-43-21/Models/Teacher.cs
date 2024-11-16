@@ -9,20 +9,23 @@ namespace Nikolaeva_kt_43_21.Models
         [JsonIgnore]
         public int TeacherId { get; set; }
 
-        public required string FirstName { get; set; } = string.Empty;
+        public string FirstName { get; set; } = string.Empty;
 
-        public required string LastName { get; set; } = string.Empty;
+        public string LastName { get; set; } = string.Empty;
 
-        public required string MiddleName { get; set; } = string.Empty;
-         public required string Position {  get; set; } 
+        public string MiddleName { get; set; } = string.Empty;
 
-        public string? Degree { get; set; } 
+        public string Position { get; set; } = string.Empty;
+
+        public string? Degree { get; set; }
 
         public int CathedraId { get; set; }
 
         [JsonIgnore]
         public Cathedra? Cathedra { get; set; }
 
-        public bool HasAcademicDegree() => Degree != null;
+        public bool HasDegree() => Degree != null;
+
+        public bool IsValidPosition() => Regex.IsMatch(Position, @"^[А-ЯЁ][а-яё\s\.]*$");
     }
 }

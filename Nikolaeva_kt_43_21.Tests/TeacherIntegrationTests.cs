@@ -3,11 +3,6 @@ using Nikolaeva_kt_43_21.Database;
 using Nikolaeva_kt_43_21.Filters;
 using Nikolaeva_kt_43_21.Interfaces.TeacherInterfaces;
 using Nikolaeva_kt_43_21.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Nikolaeva_kt_43_21.Tests
 {
@@ -20,14 +15,14 @@ namespace Nikolaeva_kt_43_21.Tests
             _dbContextOptions = new DbContextOptionsBuilder<TeacherDbContext>()
                 .UseInMemoryDatabase("pp_student_db_test")
                 .Options;
+
+            ArrangeData();
         }
 
-        [Fact]
-        public async Task GetTeachersByCathedraAsync_Cathedra1_TwoObjects()
+        private void ArrangeData()
         {
             // Arrange
-            var ctx = new TeacherDbContext(_dbContextOptions);
-            var teacherGetterService = new TeacherGetterService(ctx);
+            using var ctx = new TeacherDbContext(_dbContextOptions);
             var cathedras = new List<Cathedra>
             {
                 new Cathedra
@@ -41,7 +36,7 @@ namespace Nikolaeva_kt_43_21.Tests
                     Name = "Cathedra2",
                 }
             };
-            await ctx.Set<Cathedra>().AddRangeAsync(cathedras);
+            ctx.Set<Cathedra>().AddRange(cathedras);
 
             var teachers = new List<Teacher>
             {
@@ -70,8 +65,16 @@ namespace Nikolaeva_kt_43_21.Tests
                     CathedraId = 1,
                 }
             };
-            await ctx.Set<Teacher>().AddRangeAsync(teachers);
-            await ctx.SaveChangesAsync();
+            ctx.Set<Teacher>().AddRange(teachers);
+            ctx.SaveChanges();
+        }
+
+        [Fact]
+        public async Task GetTeachersByCathedraAsync_Cathedra1_TwoObjects()
+        {
+            // Arrange
+            using var ctx = new TeacherDbContext(_dbContextOptions);
+            var teacherGetterService = new TeacherGetterService(ctx);
 
             // Act
             var filter = new TeacherCathedraFilter()
